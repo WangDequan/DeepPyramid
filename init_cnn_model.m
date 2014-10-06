@@ -23,11 +23,13 @@ function cnn = init_cnn_model(varargin)
 % Options
 ip = inputParser;
 
+% './data/caffe_nets/ilsvrc_2012_train_iter_310k', ...
 % network binary file
 ip.addParamValue('net_file', ...
-    './data/caffe_nets/ilsvrc_2012_train_iter_310k', ...
+    './data/caffe_nets/finetune_ilsvrc13_val1+train1k_iter_50000', ...
     @isstr);
 
+% './model-defs/pyramid_cnn_output_conv5_scales_7_plane_1713.prototxt', ...
 % network prototxt file
 ip.addParamValue('def_file', ...
     './model-defs/pyramid_cnn_output_conv5_scales_7_plane_1713.prototxt', ...
@@ -77,7 +79,7 @@ assert(exist(data_mean_file, 'file') ~= 0);
 % to be consistent with previous experiments
 ld = load(data_mean_file);
 mu = ld.image_mean; clear ld;
-input_size = 227;
+input_size = 224;
 off = floor((size(mu,1) - input_size)/2)+1;
 mu = mu(off:off+input_size-1, off:off+input_size-1, :);
 mu = sum(sum(mu, 1), 2) / size(mu, 1) / size(mu, 2);

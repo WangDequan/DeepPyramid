@@ -16,9 +16,10 @@ USE_GPU = true;
 USE_CACHE = false;
 USE_CAFFE = true;
 
-im = imread('000084.jpg');
-bbox = [263 145 381 225];
+im = imread('bird.jpg');
+bbox = [1 1 size(im,2) size(im,1)];
 
+caffe('set_device',1);
 cnn = init_cnn_model('use_gpu', USE_GPU, 'use_caffe', USE_CAFFE);
 
 if USE_CACHE
