@@ -12,32 +12,11 @@ function pyra = demo_deep_pyramid(im)
 % this file (or any portion of it) in your project.
 % ---------------------------------------------------------
 
-if exist('caffe') ~= 3
-  error('You must add matcaffe to your path.');
-end
+USE_GPU = true;
+USE_CACHE = false;
+USE_CAFFE = true;
 
-if ~exist('data/caffe_nets/ilsvrc_2012_train_iter_310k')
-  error(['You need the CNN model in %s. ' ...
-         'You can get this model by following ' ...
-         'the R-CNN installation instructions.'], ...
-        'data/caffe_nets/ilsvrc_2012_train_iter_310k');
-end
-
-if 1
-  % real use settings (compute features using the GPU)
-  USE_GPU = true;
-  USE_CACHE = false;
-  USE_CAFFE = true;
-else
-  % fast demo settings
-  USE_GPU = false;
-  USE_CACHE = true;
-  USE_CAFFE = false;
-end
-
-if ~exist('im', 'var') || isempty(im)
-  im = imread('000084.jpg');
-end
+im = imread('000084.jpg');
 bbox = [263 145 381 225];
 
 cnn = init_cnn_model('use_gpu', USE_GPU, 'use_caffe', USE_CAFFE);
